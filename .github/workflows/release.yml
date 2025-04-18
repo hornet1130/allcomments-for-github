@@ -1,0 +1,48 @@
+name: 📦 Build & Deploy Chrome Extension
+
+# 버전 태그 (v1.2.3 등)가 푸시될 때만 실행
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      # 1) 소스 체크아웃
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2) Node.js 설치 (빌드 스크립트를 위해)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      # 3) 의존성 설치
+      - name: Install dependencies
+        run: npm ci
+
+      # 4) 번들 & 패키징
+      - name: Build and zip extension
+        run: npm run build
+
+      # 5) Chrome Web Store에 업로드 및 퍼블리시
+      - name: Publish to Chrome Web Store
+        uses: r0adkll/upload-chrome-extension@v1
+        with:
+          extension_id: ${{ secrets.CHROME_EXTENSION_ID }}
+          client_id: ${{ secrets.CHROME_CLIENT_ID }}
+          client_secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh_token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          zip: extension.zip
+          publish: true # true 로 설정하면 "퍼블리시" 단계까지 진행
+
+      # 6) (선택) Release 페이지에 아티팩트 첨부
+      - name: Upload ZIP to GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: extension.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

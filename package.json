@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "build": "esbuild src/content.js --bundle --minify --outfile=dist/content.js && cp manifest.json dist/ && cd dist && zip -r ../extension.zip ."
+  }
+}
