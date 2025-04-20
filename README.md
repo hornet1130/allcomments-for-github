@@ -2,7 +2,7 @@
 
 Automatically expand all hidden comments on GitHub issue pages.
 
-![Screenshot](./assets/main.png) <!-- 필요시 확장 소개 이미지 추가 -->
+![Screenshot](./assets/main.png)
 
 ## 📌 What is it?
 
@@ -28,6 +28,8 @@ Whether you're browsing a long open source thread or reviewing internal discussi
 ---
 
 ## ⚙️ Options
+
+![Screenshot](./assets/options.png)
 
 You can configure the extension by:
 
