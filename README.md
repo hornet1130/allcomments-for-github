@@ -57,9 +57,16 @@ While the extension requests `<all_urls>` host permission, it:
 
 1. Download or clone this repository
 2. Run `yarn build` or `npm run build`
+   2.1. (Or download the prebuilt [`extension.zip`](https://github.com/hornet1130/allcomments-for-github/releases) from the Releases page)
 3. Go to `chrome://extensions`
 4. Enable "Developer mode"
-5. Click “Load unpacked” and select the `dist/` folder
+5. Click “Load unpacked” and select the `dist/` folder (or unzip `extension.zip` and select its folder)
+
+---
+
+## 📦 Prebuilt Package
+
+A prebuilt `extension.zip` file is included in every release so that you can install the extension without needing to build it yourself. You can find the latest version on the [Releases](https://github.com/hornet1130/allcomments-for-github/releases) page.
 
 ---
 
