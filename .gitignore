@@ -1,0 +1,25 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+extension.zip
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE / editor directories
+.vscode/
+.idea/
+
+# Local credentials file
+.git/credentials
+
+# Environment files
+.env
