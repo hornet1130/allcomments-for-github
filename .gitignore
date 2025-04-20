@@ -3,7 +3,6 @@ node_modules/
 
 # Build output
 dist/
-extension.zip
 
 # Logs
 npm-debug.log*
