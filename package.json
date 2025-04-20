@@ -1,5 +1,16 @@
 {
   "scripts": {
-    "build": "esbuild src/content.js --bundle --minify --outfile=dist/content.js && cp manifest.json dist/ && cd dist && zip -r ../extension.zip ."
+    "build": "mkdir -p dist && esbuild src/content.js --bundle --minify --outfile=dist/content.js && cp manifest.json src/options.html src/options.js src/background.js dist/ && cp -r icons dist/ && cd dist && zip -r ../extension.zip ."
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.2"
+  },
+  "icons": {
+    "128": "icons/icon.png"
+  },
+  "action": {
+    "default_icon": {
+      "128": "icons/icon.png"
+    }
   }
 }

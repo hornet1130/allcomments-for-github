@@ -1,6 +1,6 @@
 (function () {
-  // Configurable settings (will be overridden)
-  let allowedDomains = [];
+  // Default to only GitHub.com unless additional domains are specified
+  let allowedDomains = ["github.com"];
   let INTERVAL_MS = 2000;
   let MAX_ATTEMPTS = 20;
   let findLoadButtonsRegex =
@@ -10,7 +10,7 @@
   // Load settings from storage
   chrome.storage.sync.get(
     {
-      allowedDomains: [],
+      allowedDomains: ["github.com"],
       intervalMs: INTERVAL_MS,
       maxAttempts: MAX_ATTEMPTS,
       loadButtonsPattern: findLoadButtonsRegex.source,
@@ -18,6 +18,10 @@
     },
     (settings) => {
       allowedDomains = settings.allowedDomains;
+      // Ensure GitHub.com is always included
+      if (!allowedDomains.includes("github.com")) {
+        allowedDomains.unshift("github.com");
+      }
       INTERVAL_MS = Number(settings.intervalMs);
       MAX_ATTEMPTS = Number(settings.maxAttempts);
       findLoadButtonsRegex = new RegExp(settings.loadButtonsPattern, "i");
@@ -107,7 +111,6 @@
       position: "fixed",
       bottom: "20px",
       right: "20px",
-      padding: "10px 14px",
       background: "#2ea44f",
       color: "#fff",
       border: "none",
