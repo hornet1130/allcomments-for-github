@@ -111,8 +111,9 @@
       position: "fixed",
       bottom: "20px",
       right: "20px",
-      background: "#2ea44f",
+      background: "#0047ab",
       color: "#fff",
+      padding: "8px 16px",
       border: "none",
       borderRadius: "6px",
       cursor: "pointer",
@@ -125,7 +126,7 @@
 
   // 4) Find "Load more..." buttons
   function findLoadButtons() {
-    console.log("Finding load buttons...");
+    console.log("[AllComments] Finding load buttons...");
     return Array.from(document.querySelectorAll("button")).filter((btn) => {
       const t = btn.textContent?.trim();
       return t && findLoadButtonsRegex.test(t);
@@ -142,7 +143,7 @@
 
   // 5) Attempt to load comments
   function clickAll() {
-    // showToast("Loading comments...");
+    // If no buttons but hidden items remain, retry before finishing
     if (attempts >= MAX_ATTEMPTS) {
       clearInterval(timer);
       hideLoadingToast();
@@ -151,11 +152,9 @@
     }
     const buttons = findLoadButtons();
     if (buttons.length === 0) {
-      // 버튼이 없지만 남은 숨김 개수가 있으면 재시도
-      const hiddenItems = hasHiddenItemsIndicator();
-      console.log("Hidden items indicator:", hiddenItems);
+      // Click buttons to load more comments
       if (hasHiddenItemsIndicator()) {
-        console.log("[Unhider] 아직 숨겨진 코멘트가 남아있어 재시도합니다.");
+        console.log("[AllComments] Hidden comments remain, retrying...");
         return;
       }
       clearInterval(timer);
@@ -163,18 +162,19 @@
       showToast("All comments loaded!");
       return;
     }
-    // 버튼이 있으면 클릭
+    // Click buttons to load more comments
     buttons.forEach((btn) => btn.click());
     attempts++;
   }
 
   // 6) Start loading
   function startLoading() {
-    if (timer) return; // 중복 실행 방지
+    if (timer) return; // Prevent duplicate execution
     const btn = document.getElementById("gh-unhider-btn");
     if (btn) btn.style.display = "none";
     showLoadingToast();
     attempts = 0;
+    clickAll();
     timer = setInterval(clickAll, INTERVAL_MS);
   }
 
