@@ -29,7 +29,8 @@ Whether you're browsing a long open source thread or reviewing internal discussi
 
 ## ⚙️ Options
 
-![Screenshot](./assets/options.png)
+<img width="640" alt="settings" src="https://github.com/user-attachments/assets/41706b2b-88ab-4b6c-bfa5-b03cf67a747e" />
+
 
 You can configure the extension by:
 
