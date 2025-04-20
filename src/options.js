@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
       li.textContent = d;
       if (d !== "github.com") {
         const rm = document.createElement("button");
-        rm.textContent = "×";
+        rm.textContent = "x";
         rm.className = "remove-btn";
         rm.style.marginLeft = "8px";
         rm.addEventListener("click", () => {
