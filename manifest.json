@@ -7,7 +7,7 @@
     "48": "icons/icon.png",
     "128": "icons/icon.png"
   },
-  "description": "GitHub 이슈 페이지의 숨겨진 코멘트를 자동으로 모두 불러옵니다.",
+  "description": "Automatically expands all hidden comments on GitHub issue pages.",
   "background": {
     "service_worker": "background.js"
   },
