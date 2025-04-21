@@ -32,6 +32,30 @@
 
   // Persistent loading toast functions
   function showLoadingToast() {
+    // Insert spinner keyframes and styles once
+    if (!document.getElementById("gh-spinner-style")) {
+      const style = document.createElement("style");
+      style.id = "gh-spinner-style";
+      style.textContent = `
+      @keyframes gh-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .gh-spinner {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-right: 8px;
+        border: 2px solid #fff;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: gh-spin 1s linear infinite;
+        vertical-align: middle;
+      }
+    `;
+      document.head.appendChild(style);
+    }
+
     let toast = document.getElementById("gh-unhider-loading-toast");
     if (!toast) {
       toast = document.createElement("div");
@@ -50,7 +74,7 @@
       });
       document.body.appendChild(toast);
     }
-    toast.textContent = "Loading comments...";
+    toast.innerHTML = `Loading comments... <span class="gh-spinner"></span>`;
     toast.style.opacity = "1";
   }
 
@@ -181,6 +205,8 @@
   // 7) Insert button after verifying page
   function init() {
     if (!isGithubIssuePage()) return;
+    if (!findLoadButtons().length) return;
+
     injectButton();
   }
 

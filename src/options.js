@@ -1,3 +1,20 @@
+const intervalInput = document.getElementById("interval");
+const attemptsInput = document.getElementById("attempts");
+const loadPatternInput = document.getElementById("loadPattern");
+const hiddenPatternInput = document.getElementById("hiddenPattern");
+const saveBtn = document.getElementById("save");
+const statusMessage = document.getElementById("statusMessage");
+const resetBtn = document.getElementById("reset");
+
+const defaults = {
+  // Default allowed domains include GitHub.com and internal ABC domain
+  allowedDomains: ["github.com"],
+  intervalMs: 2000,
+  maxAttempts: 20,
+  loadButtonsPattern: "Load more|Show more replies|Show \\d+ more replies",
+  hiddenItemsPattern: "\\d+\\s+(remaining|hidden)\\s+(items|replies|comments)",
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   let domains = [];
   const domainInput = document.getElementById("domainInput");
@@ -12,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     domains.forEach((d, i) => {
       const li = document.createElement("li");
       li.textContent = d;
-      if (d !== "github.com") {
+      if (!defaults.allowedDomains.includes(d)) {
         const rm = document.createElement("button");
         rm.textContent = "x";
         rm.className = "remove-btn";
@@ -26,24 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
       domainListEl.appendChild(li);
     });
   }
-
-  const intervalInput = document.getElementById("interval");
-  const attemptsInput = document.getElementById("attempts");
-  const loadPatternInput = document.getElementById("loadPattern");
-  const hiddenPatternInput = document.getElementById("hiddenPattern");
-  const saveBtn = document.getElementById("save");
-  const statusMessage = document.getElementById("statusMessage");
-  const resetBtn = document.getElementById("reset");
-
-  const defaults = {
-    // Default to GitHub.com only
-    allowedDomains: ["github.com"],
-    intervalMs: 2000,
-    maxAttempts: 20,
-    loadButtonsPattern: "Load more|Show more replies|Show \\d+ more replies",
-    hiddenItemsPattern:
-      "\\d+\\s+(remaining|hidden)\\s+(items|replies|comments)",
-  };
 
   // Load settings and populate fields
   chrome.storage.sync.get(defaults, (settings) => {
