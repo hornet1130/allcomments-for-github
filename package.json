@@ -1,9 +1,13 @@
 {
   "scripts": {
-    "build": "mkdir -p dist && esbuild src/content.js --bundle --minify --outfile=dist/content.js && cp manifest.json src/options.html src/options.js src/background.js dist/ && cp -r icons dist/ && cd dist && zip -r ../extension.zip ."
+    "build": "mkdir -p dist && esbuild src/content.ts --bundle --minify --drop:console --define:process.env.NODE_ENV=\\\"production\\\" --outfile=dist/content.js && esbuild src/background.ts --bundle --minify --drop:console --define:process.env.NODE_ENV=\\\"production\\\" --outfile=dist/background.js && esbuild src/options.ts --bundle --minify --drop:console --define:process.env.NODE_ENV=\\\"production\\\" --outfile=dist/options.js && cp manifest.json options.html dist/ && cp -r icons dist/ && cd dist && zip -r ../extension.zip .",
+    "build:dev": "mkdir -p dist && esbuild src/content.ts --bundle --define:process.env.NODE_ENV=\\\"development\\\" --outfile=dist/content.js && esbuild src/background.ts --bundle --define:process.env.NODE_ENV=\\\"development\\\" --outfile=dist/background.js && esbuild src/options.ts --bundle --define:process.env.NODE_ENV=\\\"development\\\" --outfile=dist/options.js && cp manifest.json options.html dist/ && cp -r icons dist/ && cd dist && zip -r ../extension-dev.zip ."
   },
   "devDependencies": {
-    "esbuild": "^0.25.2"
+    "@types/chrome": "^0.0.317",
+    "@types/node": "^22.15.2",
+    "esbuild": "^0.25.2",
+    "typescript": "^5.8.3"
   },
   "icons": {
     "128": "icons/icon.png"

@@ -1,25 +1,46 @@
-const intervalInput = document.getElementById("interval");
-const attemptsInput = document.getElementById("attempts");
-const loadPatternInput = document.getElementById("loadPattern");
-const hiddenPatternInput = document.getElementById("hiddenPattern");
-const saveBtn = document.getElementById("save");
-const statusMessage = document.getElementById("statusMessage");
-const resetBtn = document.getElementById("reset");
+/// <reference types="chrome"/>
+import {
+  DEFAULT_ALLOWED_DOMAINS,
+  DEFAULT_INTERVAL_MS,
+  DEFAULT_MAX_ATTEMPTS,
+  DEFAULT_LOAD_PATTERN,
+  DEFAULT_HIDDEN_PATTERN,
+} from "./const";
+
+const intervalInput = document.getElementById("interval") as HTMLInputElement;
+const attemptsInput = document.getElementById("attempts") as HTMLInputElement;
+const loadPatternInput = document.getElementById(
+  "loadPattern"
+) as HTMLInputElement;
+const hiddenPatternInput = document.getElementById(
+  "hiddenPattern"
+) as HTMLInputElement;
+const saveBtn = document.getElementById("save") as HTMLButtonElement;
+const statusMessage = document.getElementById(
+  "statusMessage"
+) as HTMLDivElement;
+const resetBtn = document.getElementById("reset") as HTMLButtonElement;
 
 const defaults = {
-  // Default allowed domains include GitHub.com and internal ABC domain
-  allowedDomains: ["github.com"],
-  intervalMs: 2000,
-  maxAttempts: 20,
-  loadButtonsPattern: "Load more|Show more replies|Show \\d+ more replies",
-  hiddenItemsPattern: "\\d+\\s+(remaining|hidden)\\s+(items|replies|comments)",
+  // Default settings imported from const.ts
+  allowedDomains: DEFAULT_ALLOWED_DOMAINS,
+  intervalMs: DEFAULT_INTERVAL_MS,
+  maxAttempts: DEFAULT_MAX_ATTEMPTS,
+  loadButtonsPattern: DEFAULT_LOAD_PATTERN,
+  hiddenItemsPattern: DEFAULT_HIDDEN_PATTERN,
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  let domains = [];
-  const domainInput = document.getElementById("domainInput");
-  const addDomainBtn = document.getElementById("addDomain");
-  const domainListEl = document.getElementById("domainList");
+  let domains: string[] = [];
+  const domainInput = document.getElementById(
+    "domainInput"
+  ) as HTMLInputElement;
+  const addDomainBtn = document.getElementById(
+    "addDomain"
+  ) as HTMLButtonElement;
+  const domainListEl = document.getElementById(
+    "domainList"
+  ) as HTMLUListElement;
 
   const domainPattern =
     /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
@@ -142,8 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
     chrome.storage.sync.set(defaults, () => {
       domains = defaults.allowedDomains;
       renderDomainList();
-      intervalInput.value = defaults.intervalMs;
-      attemptsInput.value = defaults.maxAttempts;
+      intervalInput.value = defaults.intervalMs.toString();
+      attemptsInput.value = defaults.maxAttempts.toString();
       loadPatternInput.value = defaults.loadButtonsPattern;
       hiddenPatternInput.value = defaults.hiddenItemsPattern;
       statusMessage.textContent = "Settings reset to defaults!";
