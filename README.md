@@ -66,6 +66,16 @@ While the extension requests `<all_urls>` host permission, it:
 1. Download or clone this repository
 2. Run `yarn build` or `npm run build`  
    2.1. (Or download the prebuilt [`extension.zip`](https://github.com/hornet1130/allcomments-for-github/releases) from the Releases page)
+
+> **Build command guide**
+>
+> - `yarn build` or `npm run build`  
+>   → Generates a production-ready bundle (optimized, console statements removed).
+> - `yarn build:dev` or `npm run build:dev`  
+>   → Generates a bundle suitable for development and debugging (no optimization/minification, console statements kept).
+>
+> In most cases, use `build` for installation or release, and `build:dev` during development.
+
 3. Open `chrome://extensions` in Chrome (or a Chromium-based browser)
 4. Enable **Developer mode**
 5. Click **Load unpacked** and select the `dist/` folder (or unzip `extension.zip` and select its folder)
