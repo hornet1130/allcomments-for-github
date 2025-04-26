@@ -31,7 +31,6 @@ Whether you're browsing a long open source thread or reviewing internal discussi
 
 <img width="640" alt="settings" src="https://github.com/user-attachments/assets/41706b2b-88ab-4b6c-bfa5-b03cf67a747e" />
 
-
 You can configure the extension by:
 
 1. Clicking the extension icon in your browser toolbar
@@ -58,12 +57,18 @@ While the extension requests `<all_urls>` host permission, it:
 
 ## 🚀 Installation
 
+### Install from Chrome Web Store
+
+- Install directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/mnbllhcaehofjlockhjanllgedinbcga?utm_source=item-share-cb).
+
+### Install from source (Developer Mode)
+
 1. Download or clone this repository
-2. Run `yarn build` or `npm run build`
+2. Run `yarn build` or `npm run build`  
    2.1. (Or download the prebuilt [`extension.zip`](https://github.com/hornet1130/allcomments-for-github/releases) from the Releases page)
-3. Go to `chrome://extensions`
-4. Enable "Developer mode"
-5. Click “Load unpacked” and select the `dist/` folder (or unzip `extension.zip` and select its folder)
+3. Open `chrome://extensions` in Chrome (or a Chromium-based browser)
+4. Enable **Developer mode**
+5. Click **Load unpacked** and select the `dist/` folder (or unzip `extension.zip` and select its folder)
 
 ---
 
