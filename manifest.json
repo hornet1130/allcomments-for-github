@@ -7,7 +7,7 @@
     "48": "icons/icon.png",
     "128": "icons/icon.png"
   },
-  "description": "Automatically expands all hidden comments on GitHub issue pages.",
+  "description": "Automatically expands all hidden comments on GitHub issue and pull request pages.",
   "background": {
     "service_worker": "background.js"
   },

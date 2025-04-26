@@ -88,16 +88,26 @@
   let attempts = 0;
   let timer = null;
 
-  // 1) Check if current page is a GitHub issue page
+  // 1) Check if current page is a GitHub issue or pull request page
   function isGithubIssuePage() {
     const host = window.location.host;
-    if (allowedDomains.length > 0 && !allowedDomains.includes(host))
+    if (allowedDomains.length > 0 && !allowedDomains.includes(host)) {
       return false;
-    return /^\/[^\/]+\/[^\/]+\/issues\/\d+/.test(window.location.pathname);
+    }
+    // Match both issue and pull request pages: /owner/repo/issues/123 or /owner/repo/pull/456
+    return /^\/[^\/]+\/[^\/]+\/(?:issues|pull)\/\d+/.test(
+      window.location.pathname
+    );
   }
 
+  const colors = {
+    info: "rgba(0,0,0,0.7)",
+    success: "#0047ab",
+    warning: "#ffa500",
+    error: "#ff0000",
+  };
   // 2) Toast display function
-  function showToast(message) {
+  function showToast(message, type = "info") {
     let toast = document.getElementById("gh-unhider-toast");
     if (!toast) {
       toast = document.createElement("div");
@@ -107,7 +117,7 @@
         bottom: "20px",
         left: "50%",
         transform: "translateX(-50%)",
-        background: "rgba(0,0,0,0.7)",
+        background: colors[type],
         color: "#fff",
         padding: "8px 16px",
         borderRadius: "4px",
@@ -134,7 +144,8 @@
     Object.assign(btn.style, {
       position: "fixed",
       bottom: "20px",
-      right: "20px",
+      left: "50%",
+      transform: "translateX(-50%)",
       background: "#0047ab",
       color: "#fff",
       padding: "8px 16px",
@@ -171,7 +182,7 @@
     if (attempts >= MAX_ATTEMPTS) {
       clearInterval(timer);
       hideLoadingToast();
-      showToast("Reached maximum attempts.");
+      showToast("Reached maximum attempts.", "error");
       return;
     }
     const buttons = findLoadButtons();
@@ -183,7 +194,7 @@
       }
       clearInterval(timer);
       hideLoadingToast();
-      showToast("All comments loaded!");
+      showToast("All comments loaded!", "success");
       return;
     }
     // Click buttons to load more comments
