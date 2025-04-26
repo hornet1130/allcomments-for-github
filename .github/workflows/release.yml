@@ -22,22 +22,22 @@ jobs:
 
       # 3) 의존성 설치
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       # 4) 번들 & 패키징
       - name: Build and zip extension
-        run: npm run build
+        run: yarn build
 
       # 5) Chrome Web Store에 업로드 및 퍼블리시
       - name: Publish to Chrome Web Store
-        uses: r0adkll/upload-chrome-extension@v1
+        uses: mnao305/chrome-extension-upload@v5.0.0
         with:
-          extension_id: ${{ secrets.CHROME_EXTENSION_ID }}
-          client_id: ${{ secrets.CHROME_CLIENT_ID }}
-          client_secret: ${{ secrets.CHROME_CLIENT_SECRET }}
-          refresh_token: ${{ secrets.CHROME_REFRESH_TOKEN }}
-          zip: extension.zip
-          publish: true # true 로 설정하면 "퍼블리시" 단계까지 진행
+          file-path: extension.zip
+          extension-id: ${{ secrets.CHROME_EXTENSION_ID }}
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          publish: true
 
       # 6) (선택) Release 페이지에 아티팩트 첨부
       - name: Upload ZIP to GitHub Release
