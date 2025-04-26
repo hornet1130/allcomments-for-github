@@ -97,7 +97,7 @@ A prebuilt `extension.zip` file is included in every release so that you can ins
 ## 🛠 Tech Stack
 
 - Manifest v3
-- Vanilla JS
+- Vanilla JS + TypeScript
 - `esbuild` for bundling
 - Chrome `storage.sync` for settings
 

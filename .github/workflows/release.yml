@@ -12,25 +12,25 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      # 1) 소스 체크아웃
+      # 1) Checkout source code
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2) Node.js 설치 (빌드 스크립트를 위해)
+      # 2) Setup Node.js (for build scripts)
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
 
-      # 3) 의존성 설치
+      # 3) Install dependencies
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      # 4) 번들 & 패키징
+      # 4) Bundle & Package
       - name: Build and zip extension
         run: yarn build
 
-      # 5) Chrome Web Store에 업로드 및 퍼블리시
+      # 5) Upload and publish to Chrome Web Store
       - name: Publish to Chrome Web Store
         uses: mnao305/chrome-extension-upload@v5.0.0
         with:
@@ -41,7 +41,7 @@ jobs:
           refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
           publish: true
 
-      # 6) (선택) Release 페이지에 아티팩트 첨부
+      # 6) (Optional) Attach artifact to Release page
       - name: Upload ZIP to GitHub Release
         uses: softprops/action-gh-release@v1
         with:
