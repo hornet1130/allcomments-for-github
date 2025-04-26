@@ -125,29 +125,38 @@ if (isDev) {
       timer = window.setInterval(clickAll, INTERVAL_MS);
     }
 
-    function onPageLoadOrNavigate(): void {
-      console.log("[AllComments] Checking if page is a target page...");
-      if (
-        isTargetPage(window.location.host, allowedDomains) &&
-        findLoadButtons(findLoadButtonsRegex).length > 0
-      ) {
-        injectButton(startLoading);
-      } else {
-        const btn = document.getElementById("gh-unhider-btn");
-        if (btn) {
-          console.log("[AllComments] Removing button...");
-          btn.remove();
+    const onPageLoadOrNavigate = (function () {
+      let timeoutId: number | null = null;
+
+      return function (): void {
+        if (timeoutId) {
+          window.clearTimeout(timeoutId);
         }
-      }
-    }
+
+        timeoutId = window.setTimeout(() => {
+          console.log("[AllComments] Checking if page is a target page...");
+          if (
+            isTargetPage(window.location.host, allowedDomains) &&
+            findLoadButtons(findLoadButtonsRegex).length > 0
+          ) {
+            injectButton(startLoading);
+          } else {
+            const btn = document.getElementById("gh-unhider-btn");
+            if (btn) {
+              console.log("[AllComments] Removing button...");
+              btn.remove();
+            }
+          }
+          timeoutId = null;
+        }, 300);
+      };
+    })();
 
     // Handle SPA navigation via History API and popstate
     (function () {
-      document.addEventListener("pjax:end", onPageLoadOrNavigate);
-      document.addEventListener("pjax:complete", onPageLoadOrNavigate);
-      document.addEventListener("pjax:success", onPageLoadOrNavigate);
-      document.addEventListener("popstate", onPageLoadOrNavigate);
+      window.addEventListener("popstate", onPageLoadOrNavigate);
       document.addEventListener("turbo:load", onPageLoadOrNavigate);
+      document.addEventListener("soft-nav:end", onPageLoadOrNavigate);
 
       onPageLoadOrNavigate();
     })();
