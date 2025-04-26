@@ -1,12 +1,12 @@
 # AllComments for GitHub
 
-Automatically expand all hidden comments on GitHub issue pages.
+Automatically expand all hidden comments on GitHub issue and pull request pages.
 
 ![Screenshot](./assets/main.png)
 
 ## 📌 What is it?
 
-**AllComments for GitHub** is a Chrome extension that automatically clicks all "Load more" and "Show more replies" buttons on GitHub issue pages, so you can see the full conversation without needing to manually expand each thread.
+**AllComments for GitHub** is a Chrome extension that automatically clicks all "Load more" and "Show more replies" buttons on GitHub issue and pull request pages, so you can see the full conversation without needing to manually expand each thread.
 
 Whether you're browsing a long open source thread or reviewing internal discussions on GitHub Enterprise, this tool saves time and ensures you never miss any hidden comments.
 
@@ -14,7 +14,7 @@ Whether you're browsing a long open source thread or reviewing internal discussi
 
 ## ✨ Features
 
-- ✅ Automatically expands all hidden comments on GitHub issues
+- ✅ Automatically expands all hidden comments on GitHub issues and pull requests
 - ✅ Floating "Show all comments" button in the bottom-right corner
 - ✅ Smart retry system with configurable intervals and attempt limits
 - ✅ Fully customizable:
@@ -49,7 +49,7 @@ You can configure the extension by:
 While the extension requests `<all_urls>` host permission, it:
 
 - Enforces domain restrictions via user-defined allowlist at runtime
-- Only activates on GitHub issue pages (e.g. `/owner/repo/issues/123`)
+- Only activates on GitHub issue and pull request pages (e.g. `/owner/repo/issues/123` or `/owner/repo/pull/456`)
 - Includes strict validations and safeguards to prevent misuse
 - Uses no remote code, eval, or dynamic imports
 
